@@ -1,0 +1,354 @@
+/* NBA Color Palette */
+:root {
+    --nba-blue: #1d428a;
+    --nba-red: #c8102e;
+    --nba-white: #ffffff;
+    --nba-black: #000000;
+    --nba-gray: #6f7378;
+    --nba-light-gray: #f5f5f5;
+    --playoff-green: #00843d;
+    --playoff-gold: #fdb927;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--nba-light-gray);
+    color: var(--nba-black);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+.nba-header {
+    background: linear-gradient(135deg, var(--nba-blue) 0%, var(--nba-red) 100%);
+    color: var(--nba-white);
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nba-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nba-logo {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--nba-white);
+}
+
+.oracle-badge {
+    background-color: var(--playoff-gold);
+    color: var(--nba-black);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.main-nav {
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav a {
+    color: var(--nba-white);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.main-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, var(--nba-black) 0%, var(--nba-blue) 100%);
+    color: var(--nba-white);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--playoff-gold);
+    margin-bottom: 40px;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--playoff-gold);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--nba-white);
+    margin-top: 8px;
+}
+
+/* Predictions Section */
+.predictions-section {
+    padding: 60px 0;
+    background-color: var(--nba-white);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--nba-blue);
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.team-card {
+    background: var(--nba-white);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-color: var(--nba-blue);
+}
+
+.team-card.high-probability {
+    border-color: var(--playoff-green);
+    background: linear-gradient(to bottom, var(--nba-white) 0%, rgba(0, 132, 61, 0.05) 100%);
+}
+
+.team-card.medium-probability {
+    border-color: var(--playoff-gold);
+}
+
+.team-card.low-probability {
+    border-color: var(--nba-gray);
+    opacity: 0.8;
+}
+
+.team-header {
+    margin-bottom: 20px;
+}
+
+.team-header h3 {
+    font-size: 1.5rem;
+    color: var(--nba-black);
+    font-weight: 800;
+}
+
+.team-info {
+    font-size: 0.9rem;
+    color: var(--nba-gray);
+    margin-top: 5px;
+}
+
+.probability-bar {
+    background-color: #e0e0e0;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.probability-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--playoff-green) 0%, var(--playoff-gold) 100%);
+    border-radius: 6px;
+    transition: width 1s ease-in-out;
+}
+
+.probability-text {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--nba-blue);
+    text-align: center;
+}
+
+.team-stats {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.stat-label-small {
+    color: var(--nba-gray);
+}
+
+.stat-value {
+    font-weight: 700;
+    color: var(--nba-black);
+}
+
+/* Analytics Section */
+.analytics-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.analytics-card {
+    background: var(--nba-white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid var(--nba-blue);
+}
+
+.analytics-card h3 {
+    color: var(--nba-blue);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.analytics-description {
+    color: var(--nba-gray);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.analytics-meter {
+    background-color: #e0e0e0;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--nba-blue) 0%, var(--nba-red) 100%);
+    border-radius: 10px;
+    transition: width 1s ease-in-out;
+}
+
+/* Footer */
+.nba-footer {
+    background-color: var(--nba-black);
+    color: var(--nba-white);
+    padding: 30px 0;
+    text-align: center;
+}
+
+.nba-footer p {
+    margin-bottom: 10px;
+}
+
+.disclaimer {
+    font-size: 0.8rem;
+    color: var(--nba-gray);
+}
+
+/* Loading State */
+.team-card.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .nba-header .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .main-nav {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .teams-grid {
+        grid-template-columns: 1fr;
+    }
+}
