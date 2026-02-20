@@ -22,6 +22,7 @@
     {
       "team": "Boston Celtics",
       "conference": "Eastern",
+      "division": "Atlantic",
       "playoffProbability": 91.3,
       "willMakePlayoffs": true,
       "stats": {
@@ -36,6 +37,7 @@
     {
       "team": "Cleveland Cavaliers",
       "conference": "Eastern",
+      "division": "Central",
       "playoffProbability": 89.5,
       "willMakePlayoffs": true,
       "stats": {
@@ -50,6 +52,7 @@
     {
       "team": "New York Knicks",
       "conference": "Eastern",
+      "division": "Atlantic",
       "playoffProbability": 81.8,
       "willMakePlayoffs": true,
       "stats": {
@@ -64,6 +67,7 @@
     {
       "team": "Orlando Magic",
       "conference": "Eastern",
+      "division": "Southeast",
       "playoffProbability": 78.8,
       "willMakePlayoffs": true,
       "stats": {
@@ -78,6 +82,7 @@
     {
       "team": "Milwaukee Bucks",
       "conference": "Eastern",
+      "division": "Central",
       "playoffProbability": 76.6,
       "willMakePlayoffs": true,
       "stats": {
@@ -92,6 +97,7 @@
     {
       "team": "Miami Heat",
       "conference": "Eastern",
+      "division": "Southeast",
       "playoffProbability": 76.5,
       "willMakePlayoffs": true,
       "stats": {
@@ -106,6 +112,7 @@
     {
       "team": "Indiana Pacers",
       "conference": "Eastern",
+      "division": "Central",
       "playoffProbability": 74.8,
       "willMakePlayoffs": true,
       "stats": {
@@ -120,6 +127,7 @@
     {
       "team": "Atlanta Hawks",
       "conference": "Eastern",
+      "division": "Southeast",
       "playoffProbability": 67.3,
       "willMakePlayoffs": true,
       "stats": {
@@ -134,6 +142,7 @@
     {
       "team": "Detroit Pistons",
       "conference": "Eastern",
+      "division": "Central",
       "playoffProbability": 66.7,
       "willMakePlayoffs": true,
       "stats": {
@@ -148,6 +157,7 @@
     {
       "team": "Philadelphia 76ers",
       "conference": "Eastern",
+      "division": "Atlantic",
       "playoffProbability": 66.0,
       "willMakePlayoffs": true,
       "stats": {
@@ -162,6 +172,7 @@
     {
       "team": "Chicago Bulls",
       "conference": "Eastern",
+      "division": "Central",
       "playoffProbability": 65.3,
       "willMakePlayoffs": true,
       "stats": {
@@ -175,6 +186,7 @@
     {
       "team": "Brooklyn Nets",
       "conference": "Eastern",
+      "division": "Atlantic",
       "playoffProbability": 11.5,
       "willMakePlayoffs": false,
       "stats": {
@@ -188,6 +200,7 @@
     {
       "team": "Toronto Raptors",
       "conference": "Eastern",
+      "division": "Atlantic",
       "playoffProbability": 8.5,
       "willMakePlayoffs": false,
       "stats": {
@@ -201,6 +214,7 @@
     {
       "team": "Charlotte Hornets",
       "conference": "Eastern",
+      "division": "Southeast",
       "playoffProbability": 7.5,
       "willMakePlayoffs": false,
       "stats": {
@@ -214,6 +228,7 @@
     {
       "team": "Washington Wizards",
       "conference": "Eastern",
+      "division": "Southeast",
       "playoffProbability": 5.5,
       "willMakePlayoffs": false,
       "stats": {
@@ -227,6 +242,7 @@
     {
       "team": "Oklahoma City Thunder",
       "conference": "Western",
+      "division": "Northwest",
       "playoffProbability": 90.6,
       "willMakePlayoffs": true,
       "stats": {
@@ -241,6 +257,7 @@
     {
       "team": "Memphis Grizzlies",
       "conference": "Western",
+      "division": "Southwest",
       "playoffProbability": 82.3,
       "willMakePlayoffs": true,
       "stats": {
@@ -255,6 +272,7 @@
     {
       "team": "Houston Rockets",
       "conference": "Western",
+      "division": "Southwest",
       "playoffProbability": 80.0,
       "willMakePlayoffs": true,
       "stats": {
@@ -269,6 +287,7 @@
     {
       "team": "Denver Nuggets",
       "conference": "Western",
+      "division": "Northwest",
       "playoffProbability": 79.6,
       "willMakePlayoffs": true,
       "stats": {
@@ -283,6 +302,7 @@
     {
       "team": "Dallas Mavericks",
       "conference": "Western",
+      "division": "Southwest",
       "playoffProbability": 76.3,
       "willMakePlayoffs": true,
       "stats": {
@@ -297,6 +317,7 @@
     {
       "team": "Los Angeles Lakers",
       "conference": "Western",
+      "division": "Pacific",
       "playoffProbability": 76.0,
       "willMakePlayoffs": true,
       "stats": {
@@ -311,6 +332,7 @@
     {
       "team": "Minnesota Timberwolves",
       "conference": "Western",
+      "division": "Northwest",
       "playoffProbability": 74.8,
       "willMakePlayoffs": true,
       "stats": {
@@ -325,6 +347,7 @@
     {
       "team": "Los Angeles Clippers",
       "conference": "Western",
+      "division": "Pacific",
       "playoffProbability": 73.7,
       "willMakePlayoffs": true,
       "stats": {
@@ -339,6 +362,7 @@
     {
       "team": "Phoenix Suns",
       "conference": "Western",
+      "division": "Pacific",
       "playoffProbability": 71.2,
       "willMakePlayoffs": true,
       "stats": {
@@ -353,6 +377,7 @@
     {
       "team": "San Antonio Spurs",
       "conference": "Western",
+      "division": "Southwest",
       "playoffProbability": 68.7,
       "willMakePlayoffs": true,
       "stats": {
@@ -367,6 +392,7 @@
     {
       "team": "Sacramento Kings",
       "conference": "Western",
+      "division": "Pacific",
       "playoffProbability": 68.0,
       "willMakePlayoffs": true,
       "stats": {
@@ -380,6 +406,7 @@
     {
       "team": "Golden State Warriors",
       "conference": "Western",
+      "division": "Pacific",
       "playoffProbability": 15.5,
       "willMakePlayoffs": false,
       "stats": {
@@ -393,6 +420,7 @@
     {
       "team": "Portland Trail Blazers",
       "conference": "Western",
+      "division": "Northwest",
       "playoffProbability": 11.0,
       "willMakePlayoffs": false,
       "stats": {
@@ -406,6 +434,7 @@
     {
       "team": "Utah Jazz",
       "conference": "Western",
+      "division": "Northwest",
       "playoffProbability": 10.0,
       "willMakePlayoffs": false,
       "stats": {
@@ -419,6 +448,7 @@
     {
       "team": "New Orleans Pelicans",
       "conference": "Western",
+      "division": "Southwest",
       "playoffProbability": 9.0,
       "willMakePlayoffs": false,
       "stats": {
