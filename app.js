@@ -19,66 +19,57 @@ async function loadPredictions() {
         displayPredictions(data);
     } catch (error) {
         console.error('Error loading predictions:', error.message);
-        const divisions = ['atlantic-division', 'central-division', 'southeast-division', 
-                          'northwest-division', 'pacific-division', 'southwest-division'];
-        divisions.forEach(divId => {
-            const container = document.getElementById(divId);
-            if (container) {
-                container.innerHTML = '<tr><td colspan="5" class="error-message">Error loading predictions. Please refresh the page.</td></tr>';
-            }
-        });
+        const easternContainer = document.getElementById('eastern-conference');
+        const westernContainer = document.getElementById('western-conference');
+        easternContainer.innerHTML = '<tr><td colspan="5" class="error-message">Error loading predictions. Please refresh the page.</td></tr>';
+        westernContainer.innerHTML = '<tr><td colspan="5" class="error-message">Error loading predictions. Please refresh the page.</td></tr>';
     }
 }
 
 
 function displayPredictions(data) {
-    const divisionContainers = {
-        'Atlantic': document.getElementById('atlantic-division'),
-        'Central': document.getElementById('central-division'),
-        'Southeast': document.getElementById('southeast-division'),
-        'Northwest': document.getElementById('northwest-division'),
-        'Pacific': document.getElementById('pacific-division'),
-        'Southwest': document.getElementById('southwest-division')
-    };
+    const easternContainer = document.getElementById('eastern-conference');
+    const westernContainer = document.getElementById('western-conference');
     
-    Object.values(divisionContainers).forEach(container => {
-        if (container) container.innerHTML = '';
-    });
+    easternContainer.innerHTML = '';
+    westernContainer.innerHTML = '';
+    
+    let easternTeams, westernTeams;
     
     if (data.predictions) {
-        const divisionTeams = {
-            'Atlantic': [],
-            'Central': [],
-            'Southeast': [],
-            'Northwest': [],
-            'Pacific': [],
-            'Southwest': []
-        };
+        easternTeams = data.predictions
+            .filter(team => team.conference === "Eastern")
+            .map(team => ({
+                team: team.team,
+                probability: team.playoffProbability / 100,
+                wins: team.stats.wins,
+                losses: team.stats.losses
+            }))
+            .sort((a, b) => b.probability - a.probability);
         
-        data.predictions.forEach(team => {
-            const division = team.division;
-            if (division && divisionTeams[division]) {
-                divisionTeams[division].push({
-                    team: team.team,
-                    probability: team.playoffProbability / 100,
-                    wins: team.stats.wins,
-                    losses: team.stats.losses
-                });
-            }
-        });
-        
-        Object.keys(divisionTeams).forEach(division => {
-            divisionTeams[division].sort((a, b) => b.probability - a.probability);
-            
-            const container = divisionContainers[division];
-            if (container) {
-                divisionTeams[division].forEach((team, index) => {
-                    const teamRow = createTeamRow(team, index + 1);
-                    container.appendChild(teamRow);
-                });
-            }
-        });
+        westernTeams = data.predictions
+            .filter(team => team.conference === "Western")
+            .map(team => ({
+                team: team.team,
+                probability: team.playoffProbability / 100,
+                wins: team.stats.wins,
+                losses: team.stats.losses
+            }))
+            .sort((a, b) => b.probability - a.probability);
+    } else {
+        easternTeams = data.eastern || [];
+        westernTeams = data.western || [];
     }
+    
+    easternTeams.forEach((team, index) => {
+        const teamRow = createTeamRow(team, index + 1);
+        easternContainer.appendChild(teamRow);
+    });
+    
+    westernTeams.forEach((team, index) => {
+        const teamRow = createTeamRow(team, index + 1);
+        westernContainer.appendChild(teamRow);
+    });
     
     if (data.modelInfo) {
         console.log(`Model: ${data.modelInfo.algorithm}, Accuracy: ${data.modelInfo.accuracy}`);
