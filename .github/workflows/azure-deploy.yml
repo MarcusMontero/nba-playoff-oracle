@@ -1,0 +1,70 @@
+name: Deploy to Azure Static Website
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Verify Azure CLI
+      run: az --version
+    
+    - name: Deploy to Azure Blob Storage
+      env:
+        AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+      run: |
+        az storage blob upload-batch \
+          --destination '$web' \
+          --source . \
+          --pattern "*.html" \
+          --overwrite \
+          --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
+        
+        az storage blob upload-batch \
+          --destination '$web' \
+          --source . \
+          --pattern "*.css" \
+          --overwrite \
+          --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
+        
+        az storage blob upload-batch \
+          --destination '$web' \
+          --source . \
+          --pattern "*.js" \
+          --overwrite \
+          --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
+        
+        az storage blob upload-batch \
+          --destination '$web' \
+          --source . \
+          --pattern "*.png" \
+          --overwrite \
+          --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
+        
+        az storage blob upload-batch \
+          --destination '$web' \
+          --source . \
+          --pattern "*.jpg" \
+          --overwrite \
+          --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
+        
+        az storage blob upload-batch \
+          --destination '$web' \
+          --source . \
+          --pattern "*.svg" \
+          --overwrite \
+          --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
+        
+        az storage blob upload \
+          --container-name '$web' \
+          --file predictions.json \
+          --name predictions.json \
+          --overwrite \
+          --connection-string "$AZURE_STORAGE_CONNECTION_STRING"

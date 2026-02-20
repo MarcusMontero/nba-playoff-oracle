@@ -3,115 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBA Postseason Oracle | Playoff Predictions</title>
+    <title>Lebron Nang Cloud | NBA Postseason Oracle | Playoff Predictions</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
+
     <header class="nba-header">
         <div class="container">
             <div class="logo-section">
-                <h1 class="nba-logo">NBA</h1>
-                <span class="oracle-badge">POSTSEASON ORACLE</span>
+                <img src="logo.png" alt="NBA Postseason Oracle Logo" class="site-logo">
+                <h1 class="nba-logo">Lebron Nang Cloud | NBA Postseason Oracle</h1>
             </div>
-            <nav class="main-nav">
-                <a href="#predictions">Predictions</a>
-                <a href="#analytics">Analytics</a>
-                <a href="#standings">Standings</a>
-            </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <h1 class="hero-title">2026 NBA Playoff Predictions</h1>
-            <p class="hero-subtitle">AI-Powered Playoff Probability Analysis</p>
+            <p class="hero-subtitle">Azure ML-Powered Playoff Probability</p>
             <div class="hero-stats">
                 <div class="stat-box">
                     <span class="stat-number">30</span>
                     <span class="stat-label">Teams Analyzed</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-number">AI</span>
-                    <span class="stat-label">Machine Learning</span>
+                    <span class="stat-number">91.33%</span>
+                    <span class="stat-label">Model Accuracy</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-number">Live</span>
-                    <span class="stat-label">Real-Time Updates</span>
+                    <span class="stat-number">Azure ML</span>
+                    <span class="stat-label">XGBoost Classifier</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Conference Sections -->
+
     <section class="predictions-section" id="predictions">
         <div class="container">
-            <h2 class="section-title">Eastern Conference Playoff Probabilities</h2>
-            <div class="teams-grid" id="eastern-conference">
-                <!-- Teams will be dynamically loaded here -->
-                <div class="team-card loading">
-                    <div class="team-header">
-                        <h3>Loading...</h3>
-                    </div>
-                    <div class="probability-bar">
-                        <div class="probability-fill" style="width: 0%"></div>
-                    </div>
-                    <p class="probability-text">Calculating predictions...</p>
-                </div>
+            <h2 class="section-title">Eastern Conference</h2>
+            <div class="table-container">
+                <table class="predictions-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Team</th>
+                            <th>W-L</th>
+                            <th>Playoff Probability</th>
+                            <th class="probability-column">Probability Bar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eastern-conference">
+                        <tr class="loading-row">
+                            <td colspan="5">Loading predictions...</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <h2 class="section-title">Western Conference Playoff Probabilities</h2>
-            <div class="teams-grid" id="western-conference">
-                <!-- Teams will be dynamically loaded here -->
-                <div class="team-card loading">
-                    <div class="team-header">
-                        <h3>Loading...</h3>
-                    </div>
-                    <div class="probability-bar">
-                        <div class="probability-fill" style="width: 0%"></div>
-                    </div>
-                    <p class="probability-text">Calculating predictions...</p>
-                </div>
+            <h2 class="section-title">Western Conference</h2>
+            <div class="table-container">
+                <table class="predictions-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Team</th>
+                            <th>W-L</th>
+                            <th>Playoff Probability</th>
+                            <th class="probability-column">Probability Bar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="western-conference">
+                        <tr class="loading-row">
+                            <td colspan="5">Loading predictions...</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
 
-    <!-- Analytics Section -->
-    <section class="analytics-section" id="analytics">
+
+    <section class="model-info-section">
         <div class="container">
-            <h2 class="section-title">Key Performance Indicators</h2>
-            <div class="analytics-grid">
-                <div class="analytics-card">
-                    <h3>Top Predictor: Defensive Rating</h3>
-                    <p class="analytics-description">Teams with defensive rating below 110 have 78% higher playoff probability</p>
-                    <div class="analytics-meter">
-                        <div class="meter-fill" style="width: 78%"></div>
-                    </div>
-                </div>
-                <div class="analytics-card">
-                    <h3>Three Point Percentage Impact</h3>
-                    <p class="analytics-description">Teams shooting above 37% from three have 65% playoff chance</p>
-                    <div class="analytics-meter">
-                        <div class="meter-fill" style="width: 65%"></div>
-                    </div>
-                </div>
-                <div class="analytics-card">
-                    <h3>Win Percentage Threshold</h3>
-                    <p class="analytics-description">Historical data shows 50+ wins virtually guarantees playoff berth</p>
-                    <div class="analytics-meter">
-                        <div class="meter-fill" style="width: 95%"></div>
-                    </div>
-                </div>
+            <h2 class="section-title">Model Information</h2>
+            <div class="model-details">
+                <p><strong>Algorithm:</strong> XGBoostClassifier (Azure AutoML)</p>
+                <p><strong>Accuracy:</strong> 91.33%</p>
+                <p><strong>Training Data:</strong> 150 records (5 seasons: 2021-2025)</p>
+                <p><strong>Methodology:</strong> Predictions based on model classification. Playoff probabilities calculated from team Win% and Net Rating.</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+
     <footer class="nba-footer">
         <div class="container">
-            <p>&copy; 2026 NBA Postseason Oracle | Powered by Azure Machine Learning</p>
-            <p class="disclaimer">Predictions are based on historical data and AI analysis. Actual results may vary.</p>
+            <p>&copy; Lebron Nang Cloud | 2026 NBA Postseason Oracle | Powered by Azure Machine Learning</p>
+            <p class="disclaimer">Predictions are based on historical data and Azure Machine Learning. Actual results may vary.</p>
         </div>
     </footer>
 

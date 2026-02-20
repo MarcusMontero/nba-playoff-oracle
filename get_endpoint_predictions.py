@@ -1,20 +1,12 @@
-"""
-Generate NBA Playoff Predictions using Azure ML Real-Time Endpoint
-This script calls your deployed model endpoint to get REAL predictions
-"""
-
 import json
 import requests
 import pandas as pd
+import os
 
-# Azure ML Real-Time Endpoint credentials
-# Get these from Azure ML Studio: Endpoints → nba-playoff-predictor-endpoint → Consume tab
-ENDPOINT_URL = "YOUR_ENDPOINT_URL_HERE"  # Replace with your endpoint URL
-API_KEY = "YOUR_API_KEY_HERE"  # Replace with your primary key
+ENDPOINT_URL = "https://nba-playoff-predictor-endpoint.koreacentral.inference.ml.azure.com/score"
+API_KEY = os.environ.get("AZURE_ML_API_KEY", "YOUR_API_KEY_HERE")
 
-# 2025-26 NBA season projected statistics (mid-season, February 2026)
 nba_2026_data = [
-    # Eastern Conference
     {"Team": "Boston Celtics", "Conference": "Eastern", "Season": 2026, "W": 47.0, "L": 13.0, "ORtg": 121.5, "DRtg": 110.2, "NRtg": 11.3, "Pace": 99.1, "FTr": 0.234, "ThreePAr": 0.481, "TS_Pct": 0.609},
     {"Team": "Cleveland Cavaliers", "Conference": "Eastern", "Season": 2026, "W": 44.0, "L": 16.0, "ORtg": 118.7, "DRtg": 108.5, "NRtg": 10.2, "Pace": 97.8, "FTr": 0.265, "ThreePAr": 0.445, "TS_Pct": 0.597},
     {"Team": "New York Knicks", "Conference": "Eastern", "Season": 2026, "W": 38.0, "L": 22.0, "ORtg": 116.3, "DRtg": 109.8, "NRtg": 6.5, "Pace": 96.4, "FTr": 0.289, "ThreePAr": 0.412, "TS_Pct": 0.584},
@@ -30,8 +22,6 @@ nba_2026_data = [
     {"Team": "Charlotte Hornets", "Conference": "Eastern", "Season": 2026, "W": 13.0, "L": 47.0, "ORtg": 108.9, "DRtg": 118.4, "NRtg": -9.5, "Pace": 99.7, "FTr": 0.233, "ThreePAr": 0.414, "TS_Pct": 0.551},
     {"Team": "Toronto Raptors", "Conference": "Eastern", "Season": 2026, "W": 15.0, "L": 45.0, "ORtg": 109.5, "DRtg": 117.8, "NRtg": -8.3, "Pace": 96.8, "FTr": 0.261, "ThreePAr": 0.396, "TS_Pct": 0.556},
     {"Team": "Washington Wizards", "Conference": "Eastern", "Season": 2026, "W": 9.0, "L": 51.0, "ORtg": 106.8, "DRtg": 119.7, "NRtg": -12.9, "Pace": 98.3, "FTr": 0.244, "ThreePAr": 0.408, "TS_Pct": 0.544},
-    
-    # Western Conference
     {"Team": "Oklahoma City Thunder", "Conference": "Western", "Season": 2026, "W": 45.0, "L": 15.0, "ORtg": 119.3, "DRtg": 108.7, "NRtg": 10.6, "Pace": 98.4, "FTr": 0.276, "ThreePAr": 0.429, "TS_Pct": 0.603},
     {"Team": "Houston Rockets", "Conference": "Western", "Season": 2026, "W": 37.0, "L": 23.0, "ORtg": 114.6, "DRtg": 109.3, "NRtg": 5.3, "Pace": 99.8, "FTr": 0.298, "ThreePAr": 0.403, "TS_Pct": 0.579},
     {"Team": "Memphis Grizzlies", "Conference": "Western", "Season": 2026, "W": 39.0, "L": 21.0, "ORtg": 116.8, "DRtg": 110.5, "NRtg": 6.3, "Pace": 100.6, "FTr": 0.287, "ThreePAr": 0.384, "TS_Pct": 0.588},
@@ -50,16 +40,14 @@ nba_2026_data = [
 ]
 
 def call_endpoint(data):
-    """Call Azure ML endpoint with team data"""
-    
-    # Prepare the data in Azure ML AutoML expected format
     df = pd.DataFrame(data)
-    
-    # AutoML endpoints expect this specific format
     payload = {
         "input_data": {
-            "columns": list(df.columns),
-            "data": df.values.tolist()
+            "columns": ["Team", "Season", "W", "L", "ORtg", "DRtg", "NRtg", "Pace", "FTr", "ThreePAr", "TS_Pct"],
+            "data": df[["Team", "Season", "W", "L", "ORtg", "DRtg", "NRtg", "Pace", "FTr", "ThreePAr", "TS_Pct"]].values.tolist()
+        },
+        "GlobalParameters": {
+            "method": "predict_proba"
         }
     }
     
@@ -69,55 +57,40 @@ def call_endpoint(data):
     }
     
     try:
+        print(f"Sending request with {len(data)} teams...")
         response = requests.post(ENDPOINT_URL, json=payload, headers=headers)
         response.raise_for_status()
-        return response.json()
+        print(f"Response received: {response.status_code}")
+        result = response.json()
+        print(f"Response preview: {str(result)[:200]}...")
+        if isinstance(result, dict):
+        return result
     except Exception as e:
-        print(f"❌ Error calling endpoint: {e}")
-        if hasattr(e, 'response'):
-            print(f"Response: {e.response.text}")
+        print(f"Error calling endpoint: {e}")
+        if hasattr(e, 'response') and hasattr(e.response, 'text'):
+            print(f" Response: {e.response.text}")
         raise
 
 def generate_predictions():
-    """Generate predictions for all 30 NBA teams"""
-    
-    print("🏀 Calling YOUR deployed Azure ML endpoint...")
-    print(f"📍 Endpoint: {ENDPOINT_URL[:50]}...")
-    
-    # Call the endpoint
+    print("Calling Azure ML endpoint...")
+    print(f"Endpoint: {ENDPOINT_URL[:50]}...")
     result = call_endpoint(nba_2026_data)
-    
-    # Extract predictions - AutoML returns array of predictions
-    if isinstance(result, list):
-        predictions_raw = result
-    elif 'result' in result:
-        predictions_raw = result['result']
+    if 'Results' in result:
+        probabilities = result['Results']
     else:
-        # Response might be nested differently
-        predictions_raw = result
-    
-    # Build predictions with real model output
+        raise ValueError(f"Unexpected response format: {result}")
+    print(f"Received {len(probabilities)} predictions")
     predictions = []
     for i, team_data in enumerate(nba_2026_data):
-        # Get prediction - could be class label or probability
-        pred = predictions_raw[i]
-        
-        # If it's a single value (0 or 1), convert to probability
-        if isinstance(pred, (int, float)) and pred in [0, 1]:
-            playoff_prob = float(pred)
-        # If it's a probability value
-        elif isinstance(pred, float):
-            playoff_prob = pred
-        # If it's an array [prob_no_playoff, prob_playoff]
-        elif isinstance(pred, list) and len(pred) == 2:
-            playoff_prob = pred[1]
+        prob_array = probabilities[i]
+        if isinstance(prob_array, list) and len(prob_array) == 2:
+            playoff_prob = prob_array[1]
         else:
-            playoff_prob = float(pred)
-        
+            raise ValueError(f"Unexpected probability format: {prob_array}")
         prediction = {
             "team": team_data["Team"],
             "conference": team_data["Conference"],
-            "playoffProbability": round(playoff_prob * 100, 1),  # Convert to percentage
+            "playoffProbability": round(playoff_prob * 100, 1),
             "willMakePlayoffs": playoff_prob >= 0.5,
             "stats": {
                 "wins": int(team_data["W"]),
@@ -128,23 +101,15 @@ def generate_predictions():
             }
         }
         predictions.append(prediction)
-    
-    # Sort by conference and probability
     eastern = sorted([p for p in predictions if p["conference"] == "Eastern"], 
                      key=lambda x: x["playoffProbability"], reverse=True)
     western = sorted([p for p in predictions if p["conference"] == "Western"], 
                      key=lambda x: x["playoffProbability"], reverse=True)
-    
-    # Assign playoff seeds (top 10 in each conference make play-in/playoffs)
     for i, team in enumerate(eastern[:10], 1):
         team["predictedSeed"] = i
     for i, team in enumerate(western[:10], 1):
         team["predictedSeed"] = i
-    
-    # Combine all predictions
     all_predictions = eastern + western
-    
-    # Create output JSON
     output = {
         "modelInfo": {
             "name": "NBA Playoff Predictor",
@@ -156,21 +121,17 @@ def generate_predictions():
         },
         "predictions": all_predictions
     }
-    
-    # Save to file
     with open('predictions.json', 'w') as f:
         json.dump(output, f, indent=2)
-    
-    print("\n✅ Predictions generated using YOUR trained model endpoint!")
-    print(f"\n📊 Eastern Conference: {sum(1 for p in eastern if p['willMakePlayoffs'])} teams making playoffs")
-    print(f"📊 Western Conference: {sum(1 for p in western if p['willMakePlayoffs'])} teams making playoffs")
-    print(f"\n🏆 Top 3 Eastern: {', '.join([p['team'] for p in eastern[:3]])}")
-    print(f"🏆 Top 3 Western: {', '.join([p['team'] for p in western[:3]])}")
-    print(f"\n💾 Saved to: predictions.json")
+    print("Predictions saved to predictions.json")
+    print(f"Eastern Conference: {sum(1 for p in eastern if p['willMakePlayoffs'])} teams making playoffs")
+    print(f"Western Conference: {sum(1 for p in western if p['willMakePlayoffs'])} teams making playoffs")
+    print(f"Top 3 Eastern: {', '.join([p['team'] for p in eastern[:3]])}")
+    print(f"Top 3 Western: {', '.join([p['team'] for p in western[:3]])}")
 
 if __name__ == "__main__":
     if "YOUR_ENDPOINT_URL_HERE" in ENDPOINT_URL:
-        print("❌ ERROR: Please update ENDPOINT_URL and API_KEY in this script first!")
+        print("ERROR: Please update ENDPOINT_URL and API_KEY in this script first!")
         print("\nGet these values from Azure ML Studio:")
         print("1. Go to Endpoints → nba-playoff-predictor-endpoint")
         print("2. Click 'Consume' tab")
